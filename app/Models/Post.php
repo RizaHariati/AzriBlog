@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
+{
+
+    public function scopeFilter($query, $filters)
+    {
+        $query->when(
+            $filters['user'] ?? false,
+            fn ($query, $user) => $query->whereHas(
+                'user',
+                fn ($query) => $query->where('username', $user)
+            )
+        );
+
+        $query->when(
+            $filters['category'] ?? false,
+            fn ($query, $category) => $query->whereHas(
+                'category',
+                fn ($query) => $query->where('slug', $category)
+            )
+        );
+
+        $query->when(
+            $filters['search'] ?? false,
+            fn ($query, $search) => $query->where('title', 'like', "%" . $search . "%")
+        );
+       
+    }
+
+    use HasFactory;
+    protected $fillable = [
+        'title',
+        'slug',
+        'is_featured',
+        'user_id',
+        'category_id',
+        'excerpt',
+        'body',
+        'image',
+        'published_at',
+
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+     public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+}

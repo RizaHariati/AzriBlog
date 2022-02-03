@@ -1,0 +1,8 @@
+$primary: #565656;
+$secondary:#76323f;
+$info:#c09f80;
+$light:#eeecea;
+$display-font-sizes: ( 1: 2.5rem, 2: 2.2rem, 3: 1.4rem, 4: 1rem, 5: 1rem, 6: 0.8rem);
+$display-font-weight: 400;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss"
