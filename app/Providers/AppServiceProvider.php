@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+       
     }
 
     /**
@@ -28,11 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-         Paginator::useBootstrap();
-         $categories=Category::all();
-         $users = User::all();
-         View::share('categories', $categories);
-         View::share('users', $users);
-        
+        Paginator::useBootstrap();
+        $categories = Category::all();
+        $users = User::all();
+        View::share('categories', $categories);
+        View::share('users', $users);
     }
 }
